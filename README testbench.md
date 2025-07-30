@@ -1,4 +1,3 @@
-```verilog
 `timescale 1ps/1ps
 module tb_priority_encoder_8_3;
   
@@ -12,15 +11,9 @@ module tb_priority_encoder_8_3;
   initial begin
     $monitor("time=%0t, d=%b, y=%b | exp_y=%b",$time,d,y,exp_y);
     
-    for(i=0;i<256;i=i+1) begin
-      d = i;
-      exp_y = 3'b000;
-      for(j=7;j>=0;j=j-1)begin
-        if(d[j])begin
-          exp_y = j;
-          j = -1;
-        end
-      end
+    for(i=7;i>=0;i=i-1) begin
+      d = 8'b1 << i ;
+      exp_y = i;
       #5;
       check(y,exp_y);
     end
@@ -40,10 +33,10 @@ module tb_priority_encoder_8_3;
   task check(input [2:0]y, input [2:0]exp_y);
     begin
       if(y!==exp_y)begin
-        $display("[CHECK] error");
+        $display("[CHECK] Error");
         err= err+1;
       end else begin
-        $display("[CHECK] matching");
+        $display("[CHECK] Matching");
       end
     end
   endtask
