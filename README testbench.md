@@ -1,3 +1,4 @@
+```verilog
 `timescale 1ps/1ps
 module tb_priority_encoder_8_3;
   
